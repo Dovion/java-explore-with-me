@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name = "compilation")
 public class Compilation {
 
-    @Column(name = "compilation_event_id")
+    @JoinColumn(name = "compilation_event_id")
     @ManyToMany
     private List<Event> compilationEvents;
     @Id

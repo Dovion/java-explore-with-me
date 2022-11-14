@@ -18,10 +18,10 @@ public class Request {
 
     @Column(name = "request_created")
     private LocalDateTime created;
-    @Column(name = "request_event_id")
+    @JoinColumn(name = "request_event_id")
     @ManyToOne
     private Event event;
-    @Column(name = "request_requester_id")
+    @JoinColumn(name = "request_requester_id")
     @ManyToOne
     private User requester;
     @Column(name = "request_status")

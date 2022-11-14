@@ -26,5 +26,4 @@ public interface PublicService {
 
     CategoryFullDto getCategoryById(Long id);
 
-    List<EventFullDto> getAllEventsByUserId(Long userId, Integer from, Integer size);
 }

@@ -1,9 +1,14 @@
-create sequence event_new_column_seq
+drop table if exists request;
+drop table if exists compilation;
+drop table if exists event;
+drop table if exists "user";
+drop table if exists category;
+create sequence if not exists event_new_column_seq
     as integer;
 
 alter sequence event_new_column_seq owner to postgres;
 
-create sequence "limit"
+create sequence if not exists "limit"
     minvalue 0;
 
 alter sequence "limit" owner to postgres;

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AuthorizeService {
 
-    List<EventFullDto> getAllEventsByUserId(Long id, Integer from, Integer size);
+    List<EventFullDto> getAllEventsByUserId(Long userId, Integer from, Integer size);
 
     EventFullDto updateEventByInitiator(Long userId, EventDto eventDto);
 

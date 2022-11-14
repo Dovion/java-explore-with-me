@@ -1,6 +1,7 @@
 package ru.practicum.explorewithme.event.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.explorewithme.category.model.Category;
@@ -14,12 +15,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "event")
+@Builder
 public class Event {
     @Column(name = "event_annotation")
     private String annotation;
-    @Column(name = "event_category_id")
-    @OneToOne
-    private Category categoryId;
+    @JoinColumn(name = "event_category_id")
+    @ManyToOne
+    private Category category;
     @Column(name = "event_confirmed_requests")
     private Long confirmedRequests;
     @Column(name = "event_date")
@@ -28,8 +30,8 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "event_initiator_id")
-    @OneToOne
+    @JoinColumn(name = "event_initiator_id")
+    @ManyToOne
     private User initiatior;
     @Column(name = "event_paid")
     private boolean paid;
@@ -47,8 +49,8 @@ public class Event {
     private boolean requestModeration;
     @Column(name = "event_state")
     private EventState eventState;
-    /// @Column(name = "event_location_lon")
-  ///  private double longitude;
-   /// @Column(name = "event_location_lat")
-  ///  private double latitude;
+    @Column(name = "event_location_lon")
+    private double longitude;
+    @Column(name = "event_location_lat")
+    private double latitude;
 }

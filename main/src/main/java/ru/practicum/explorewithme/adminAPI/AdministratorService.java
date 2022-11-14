@@ -32,7 +32,7 @@ public interface AdministratorService {
 
     void removeCategoryById(Long id);
 
-    UserDto getAllUsers(Long[] ids,
+    List<UserDto> getAllUsers(Long[] ids,
                         Integer from,
                         Integer size);
 

@@ -1,3 +1,4 @@
+drop table if exists stats;
 create table stats
 (
     id              integer not null,
