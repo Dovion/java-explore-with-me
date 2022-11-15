@@ -53,4 +53,6 @@ public class Event {
     private double longitude;
     @Column(name = "event_location_lat")
     private double latitude;
+    @Column(name = "event_published_on")
+    private LocalDateTime publishedOn;
 }

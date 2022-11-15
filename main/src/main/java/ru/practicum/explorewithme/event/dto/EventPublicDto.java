@@ -16,7 +16,7 @@ public class EventPublicDto {
     private String annotation;
     private CategoryFullDto category;
     private Long confirmedRequests;
-    private LocalDateTime eventTime;
+    private LocalDateTime eventDate;
     private Long id;
     private UserDto initiator;
     private boolean paid;

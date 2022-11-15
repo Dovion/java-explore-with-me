@@ -58,7 +58,8 @@ create table event
     event_request_moderation boolean,
     event_state              varchar                                                   not null,
     event_location_lon       double precision                                          not null,
-    event_location_lat       double precision                                          not null
+    event_location_lat       double precision                                          not null,
+    event_published_on       timestamp
 );
 
 alter table event

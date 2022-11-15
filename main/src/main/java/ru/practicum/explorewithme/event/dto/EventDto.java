@@ -21,15 +21,4 @@ public class EventDto {
     private boolean requestModeration;
     private String title;
 
-    public EventDto(String annotation, Long categoryId, String description, Location location, String title, String eventDate, Boolean paid, Long participantLimit, Boolean requestModeration) {
-        this.annotation = annotation;
-        this.categoryId = categoryId;
-        this.description = description;
-        this.location = location;
-        this.title = title;
-        this.eventDate = LocalDateTime.parse(eventDate);
-        this.paid = paid;
-        this.participantLimit = participantLimit;
-        this.requestModeration = requestModeration;
-    }
 }

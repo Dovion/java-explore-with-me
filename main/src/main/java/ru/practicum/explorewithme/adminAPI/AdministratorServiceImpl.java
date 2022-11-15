@@ -11,6 +11,7 @@ import ru.practicum.explorewithme.compilation.dto.CompilationDto;
 import ru.practicum.explorewithme.compilation.dto.CompilationFullDto;
 import ru.practicum.explorewithme.event.dto.EventDto;
 import ru.practicum.explorewithme.event.dto.EventFullDto;
+import ru.practicum.explorewithme.event.mapper.EventMapper;
 import ru.practicum.explorewithme.event.model.Event;
 import ru.practicum.explorewithme.event.model.EventState;
 import ru.practicum.explorewithme.event.repository.EventRepository;
@@ -30,48 +31,45 @@ public class AdministratorServiceImpl implements AdministratorService{
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final EventRepository eventRepository;
-//    @Override
-//    public List<EventFullDto> getAllEvents(Long[] users, String[] states, Long[] categories, String rangeStart, String rangeEnd, Integer from, Integer size) {
-//        for (Long id : categories) {
-//            if (!categoryRepository.existsById(id)) {
-//              //  throw Exception();
-//            }
-//        }
-//        for (Long id : users) {
-//            if (!userRepository.existsById(id)) {
-//                //  throw Exception();
-//            }
-//        }
-//        List<EventState> eventStates = new ArrayList<>();
-//        if (states != null) {
-//            for (String state : states) {
-//                try {
-//                    eventStates.add(EventState.valueOf(state));
-//                } catch (IllegalArgumentException exception) {
-//                    throw new IllegalArgumentException("Stats: " + state + " not found.");
-//                }
-//            }
-//        }
-//        LocalDateTime startDate = LocalDateTime.now();
-//        if (rangeStart != null) {
-//            startDate = LocalDateTime.parse(rangeStart);
-//        }
-//        LocalDateTime endDate = LocalDateTime.now();
-//        if (rangeStart != null) {
-//            endDate = LocalDateTime.parse(rangeEnd);
-//        }
-//        Pageable pageable = PageRequest.of(from / size, size);
-//        List<Event> eventList = eventRepository.getAllByUsersAndStatesAndCategories(users, eventStates, categories, startDate, endDate, pageable);
-//        List<EventFullDto> eventFullDtoList = new ArrayList<>();
-//        for (var event: eventList){
-//            eventFullDtoList.add()
-//        }
-//    } todo
     @Override
     public List<EventFullDto> getAllEvents(Long[] users, String[] states, Long[] categories, String rangeStart, String rangeEnd, Integer from, Integer size) {
-        return null;
+        for (Long id : categories) {
+            if (!categoryRepository.existsById(id)) {
+              //  throw Exception();
+            }
+        }
+        for (Long id : users) {
+            if (!userRepository.existsById(id)) {
+                //  throw Exception();
+            }
+        }
+        List<EventState> eventStates = new ArrayList<>();
+        if (states != null) {
+            for (String state : states) {
+                try {
+                    eventStates.add(EventState.valueOf(state));
+                } catch (IllegalArgumentException exception) {
+                    throw new IllegalArgumentException("Stats: " + state + " not found.");
+                }
+            }
+        }
+        LocalDateTime startDate = LocalDateTime.now();
+        if (rangeStart != null) {
+            startDate = LocalDateTime.parse(rangeStart);
+        }
+        LocalDateTime endDate = LocalDateTime.now();
+        if (rangeStart != null) {
+            endDate = LocalDateTime.parse(rangeEnd);
+        }
+        Pageable pageable = PageRequest.of(from / size, size);
+        List<Event> eventList = eventRepository.getAllByUsersAndStatesAndCategories(users, eventStates, categories, startDate, endDate, pageable);
+        List<EventFullDto> eventFullDtoList = new ArrayList<>();
+        for (var event: eventList){
+            eventFullDtoList.add(EventMapper.eventToEventFullDto(event));
+        }
+        return eventFullDtoList;
     }
-
+//TODO
     @Override
     public EventFullDto updateEvent(Long id, EventDto eventDto) {
         return null;
