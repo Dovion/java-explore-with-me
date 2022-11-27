@@ -1,8 +1,6 @@
 package ru.practicum.explorewithme.compilation.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.practicum.explorewithme.event.model.Event;
 
 import javax.persistence.*;
@@ -15,8 +13,12 @@ import java.util.List;
 @Table(name = "compilation")
 public class Compilation {
 
-    @JoinColumn(name = "compilation_event_id")
+    @JoinTable(name = "compilation_event",
+            joinColumns = @JoinColumn(name = "compilation_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id"))
     @ManyToMany
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Event> compilationEvents;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

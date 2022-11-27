@@ -1,7 +1,8 @@
 drop table if exists stats;
 create table stats
 (
-    id              integer not null,
+    id              serial
+        primary key,
     stats_app       varchar,
     stats_uri       varchar,
     stats_ip        varchar,
@@ -10,4 +11,6 @@ create table stats
 
 alter table stats
     owner to postgres;
+
+
 

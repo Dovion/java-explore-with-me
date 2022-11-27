@@ -9,21 +9,20 @@ import ru.practicum.explorewithme.event.model.Event;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CompilationMapper {
 
-    public static Compilation compilationDtoInCompilation(CompilationDto compilationDto, List<Event> eventList){
+    public static Compilation compilationDtoToCompilation(CompilationDto compilationDto, List<Event> eventList) {
         return new Compilation(eventList,
                 null,
-                compilationDto.isPinned(),
+                compilationDto.getPinned(),
                 compilationDto.getTitle());
     }
 
-    public static CompilationFullDto compilationToCompilationFullDto(Compilation compilation){
+    public static CompilationFullDto compilationToCompilationFullDto(Compilation compilation) {
         List<EventFullDto> eventFullDtoList = new ArrayList<>();
-        for(var event: compilation.getCompilationEvents()){
-         //   eventFullDtoList.add(EventMapper.eventToDtoEvent(event)); todo
+        for (var event : compilation.getCompilationEvents()) {
+            eventFullDtoList.add(EventMapper.eventToEventFullDto(event));
         }
         return new CompilationFullDto(eventFullDtoList,
                 compilation.getId(),
