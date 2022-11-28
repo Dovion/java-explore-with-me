@@ -35,40 +35,42 @@ public class PublicController {
                                            @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
                                            @RequestParam(defaultValue = "10") @Positive Integer size,
                                            HttpServletRequest request) {
-        log.info("Getting all events by public request");
+        log.info("Getting all events by public request: " + request.getServletPath());
         return publicService.getAllEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size, request);
     }
 
     @GetMapping("/events/{id}")
     public EventFullDto getEvent(@PathVariable @Positive long id, HttpServletRequest request) throws EntityNotFoundException, URISyntaxException {
-        log.info("Getting event by public request");
+        log.info("Getting event by public request: " + request.getServletPath());
         return publicService.getEventById(id, request);
     }
 
     @GetMapping("/compilations")
     public List<CompilationFullDto> getAllCompilations(@RequestParam(required = false) Boolean pinned,
                                                        @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
-                                                       @RequestParam(defaultValue = "10") @Positive Integer size) {
-        log.info("Getting all compialtions by public request");
+                                                       @RequestParam(defaultValue = "10") @Positive Integer size,
+                                                       HttpServletRequest request) {
+        log.info("Getting all compialtions by public request: " + request.getServletPath());
         return publicService.getAllCompilations(pinned, from, size);
     }
 
     @GetMapping("/compilations/{compId}")
-    public CompilationFullDto getCompilation(@PathVariable @Positive long compId) throws EntityNotFoundException {
-        log.info("Getting compilation by public request");
+    public CompilationFullDto getCompilation(@PathVariable @Positive long compId, HttpServletRequest request) throws EntityNotFoundException {
+        log.info("Getting compilation by public request: " + request.getServletPath());
         return publicService.getCompilationById(compId);
     }
 
     @GetMapping("/categories")
     public List<CategoryFullDto> getAllCategories(@RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
-                                                  @RequestParam(defaultValue = "10") @Positive Integer size) {
-        log.info("Getting all categories by public request");
+                                                  @RequestParam(defaultValue = "10") @Positive Integer size,
+                                                  HttpServletRequest request) {
+        log.info("Getting all categories by public request: " + request.getServletPath());
         return publicService.getAllCategories(from, size);
     }
 
     @GetMapping("/categories/{catId}")
-    public CategoryFullDto getCategory(@PathVariable @Positive long catId) throws EntityNotFoundException {
-        log.info("Getting category by public request");
+    public CategoryFullDto getCategory(@PathVariable @Positive long catId, HttpServletRequest request) throws EntityNotFoundException {
+        log.info("Getting category by public request: " + request.getServletPath());
         return publicService.getCategoryById(catId);
     }
 
