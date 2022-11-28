@@ -35,6 +35,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -191,8 +192,8 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public CompilationFullDto addCompilation(CompilationDto compilationDto) {
-        Compilation compilation = CompilationMapper.compilationDtoToCompilation(compilationDto, eventRepository.
-                findAllById(compilationDto.getEvents()));
+        Compilation compilation = CompilationMapper.compilationDtoToCompilation(compilationDto, eventRepository
+                .findAllById(compilationDto.getEvents()));
         compilationRepository.save(compilation);
         log.info("Saving success");
         return CompilationMapper.compilationToCompilationFullDto(compilation);
@@ -212,7 +213,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         if (events != null) {
             try {
                 for (Event event : events) {
-                    if (event.getId() == eventId) {
+                    if (Objects.equals(event.getId(), eventId)) {
                         compilation.getCompilationEvents().remove(event);
                         event.getEventCompilations().remove(compilation);
                         eventRepository.save(event);

@@ -24,8 +24,8 @@
 	</properties>
 
 	<modules>
-		<module>main</module>
 		<module>statistic</module>
+		<module>main</module>
 	</modules>
 
 	<build>
