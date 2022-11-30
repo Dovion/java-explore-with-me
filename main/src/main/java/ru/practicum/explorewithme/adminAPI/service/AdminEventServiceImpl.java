@@ -35,12 +35,12 @@ public class AdminEventServiceImpl implements AdminEventService {
     @Override
     @Transactional(readOnly = true)
     public List<EventFullDto> getAllEvents(List<Long> users, List<String> states, List<Long> categories, String rangeStart, String rangeEnd, Integer from, Integer size) throws EntityNotFoundException {
-            if (categoryRepository.findAllByIdWithoutPage(categories).size() == 0) {
-                throw new EntityNotFoundException("Can`t get all events: category not found");
-            }
-            if (userRepository.findAllByIdWithoutPage(users).size() == 0) {
-                throw new EntityNotFoundException("Can`t get all events: user not found");
-            }
+        if (categoryRepository.findAllByIdWithoutPage(categories).size() == 0) {
+            throw new EntityNotFoundException("Can`t get all events: category not found");
+        }
+        if (userRepository.findAllByIdWithoutPage(users).size() == 0) {
+            throw new EntityNotFoundException("Can`t get all events: user not found");
+        }
         List<EventState> eventStates = new ArrayList<>();
         if (states != null) {
             for (String state : states) {

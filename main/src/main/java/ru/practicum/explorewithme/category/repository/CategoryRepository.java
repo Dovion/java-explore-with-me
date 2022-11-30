@@ -3,7 +3,6 @@ package ru.practicum.explorewithme.category.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ru.practicum.explorewithme.category.model.Category;
-import ru.practicum.explorewithme.user.model.User;
 
 import java.util.List;
 
