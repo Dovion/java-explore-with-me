@@ -1,14 +1,18 @@
 package ru.practicum.explorewithme.compilation.model;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 import ru.practicum.explorewithme.event.model.Event;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "compilation")
 public class Compilation {
@@ -29,4 +33,16 @@ public class Compilation {
     @Column(name = "compilation_title")
     private String title;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Compilation that = (Compilation) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

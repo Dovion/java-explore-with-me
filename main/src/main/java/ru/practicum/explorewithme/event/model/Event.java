@@ -2,6 +2,7 @@ package ru.practicum.explorewithme.event.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.hibernate.Hibernate;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.practicum.explorewithme.category.model.Category;
 import ru.practicum.explorewithme.compilation.model.Compilation;
@@ -10,10 +11,13 @@ import ru.practicum.explorewithme.user.model.User;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "event")
 public class Event {
@@ -69,4 +73,17 @@ public class Event {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Compilation> eventCompilations;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Event event = (Event) o;
+        return id != null && Objects.equals(id, event.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

@@ -3,6 +3,7 @@ package ru.practicum.explorewithme.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.explorewithme.dto.StatisticAdminDto;
 import ru.practicum.explorewithme.dto.StatisticDto;
 import ru.practicum.explorewithme.mapper.StatisticMapper;
@@ -16,13 +17,14 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class StatisticServiceImpl implements StatisticService {
 
     private final StatisticRepository statisticRepository;
 
     @Override
     public void save(StatisticDto statisticDto) {
-        statisticRepository.save(StatisticMapper.statisticDtoToStatistic(statisticDto));
+        statisticRepository.saveAndFlush(StatisticMapper.statisticDtoToStatistic(statisticDto));
     }
 
     @Override

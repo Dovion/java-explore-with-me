@@ -1,115 +1,69 @@
-drop table if exists compilation_event;
-drop table if exists request;
-drop table if exists compilation;
-drop table if exists event;
-drop table if exists users;
-drop table if exists category;
-create sequence if not exists limits
-    minvalue 0;
+DROP TABLE IF EXISTS compilation_event;
+DROP TABLE IF EXISTS request;
+DROP TABLE IF EXISTS compilation;
+DROP TABLE IF EXISTS event;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS category;
+CREATE SEQUENCE IF NOT EXISTS limits MINVALUE 0;
 
-alter sequence limits owner to postgres;
+ALTER SEQUENCE limits OWNER TO postgres;
 
-create sequence event_new_column_seq
-    as integer;
+CREATE SEQUENCE event_new_column_seq AS INTEGER;
 
-alter sequence event_new_column_seq owner to postgres;
+ALTER SEQUENCE event_new_column_seq OWNER TO postgres;
 
-create table category
-(
-    id            serial
-        primary key,
-    category_name varchar
-        unique
+CREATE TABLE category
+(id SERIAL PRIMARY KEY, category_name VARCHAR unique);
+
+ALTER TABLE category OWNER TO postgres;
+
+CREATE TABLE users
+(id SERIAL PRIMARY KEY, user_email VARCHAR NOT NULL, user_name VARCHAR unique);
+
+ALTER TABLE users OWNER TO postgres;
+
+CREATE TABLE event
+(event_annotation VARCHAR NOT NULL,
+event_category_id INTEGER NOT NULL CONSTRAINT event_category_id_fk REFERENCES category,
+event_confirmed_requests INTEGER,
+event_date TIMESTAMP NOT NULL,
+id INTEGER DEFAULT NEXTVAL('event_new_column_seq'::REGCLASS) NOT NULL PRIMARY KEY,
+event_initiator_id INTEGER NOT NULL CONSTRAINT event_user_id_fk REFERENCES users,
+event_paid BOOLEAN,
+event_title VARCHAR NOT NULL,
+event_views  bigint,
+event_CREATEd_on TIMESTAMP NOT NULL,
+event_description VARCHAR NOT NULL,
+event_participant_limit  INTEGER NOT NULL,
+event_request_moderation BOOLEAN,
+event_state  VARCHAR NOT NULL,
+event_location_lon DOUBLE PRECISION  NOT NULL,
+event_location_lat DOUBLE PRECISION  NOT NULL,
+event_published_on TIMESTAMP,
+event_only_available BOOLEAN
 );
 
-alter table category
-    owner to postgres;
+ALTER TABLE event OWNER TO postgres;
 
-create table users
-(
-    id         serial
-        primary key,
-    user_email varchar not null,
-    user_name  varchar
-        unique
-);
+ALTER SEQUENCE event_new_column_seq owned by event.id;
 
-alter table users
-    owner to postgres;
+CREATE TABLE compilation
+(id SERIAL PRIMARY KEY, compilation_pinned BOOLEAN, compilation_title  VARCHAR);
 
-create table event
-(
-    event_annotation         varchar                                                   not null,
-    event_category_id        integer                                                   not null
-        constraint event_category_id_fk
-            references category,
-    event_confirmed_requests integer,
-    event_date               timestamp                                                 not null,
-    id                       integer default nextval('event_new_column_seq'::regclass) not null
-        primary key,
-    event_initiator_id       integer                                                   not null
-        constraint event_user_id_fk
-            references users,
-    event_paid               boolean,
-    event_title              varchar                                                   not null,
-    event_views              bigint,
-    event_created_on         timestamp                                                 not null,
-    event_description        varchar                                                   not null,
-    event_participant_limit  integer                                                   not null,
-    event_request_moderation boolean,
-    event_state              varchar                                                   not null,
-    event_location_lon       double precision                                          not null,
-    event_location_lat       double precision                                          not null,
-    event_published_on       timestamp,
-    event_only_available     boolean
-);
+ALTER TABLE compilation OWNER TO postgres;
 
-alter table event
-    owner to postgres;
+CREATE TABLE request
+(request_CREATEd  TIMESTAMP NOT NULL,
+request_event_id INTEGER CONSTRAINT request_event_id_fk REFERENCES event ON UPDATE CASCADE ON DELETE CASCADE,
+request_requester_id INTEGER CONSTRAINT request_user_id_fk REFERENCES users ON UPDATE CASCADE ON DELETE CASCADE,
+request_status VARCHAR,
+id SERIAL PRIMARY KEY);
 
-alter sequence event_new_column_seq owned by event.id;
+ALTER TABLE request OWNER TO postgres;
 
-create table compilation
-(
-    id                 serial
-        primary key,
-    compilation_pinned boolean,
-    compilation_title  varchar
-);
+CREATE TABLE compilation_event
+(id SERIAL PRIMARY KEY,
+compilation_id INTEGER CONSTRAINT compilation_event_compilation_id_fk REFERENCES compilation,
+event_id INTEGER CONSTRAINT compilation_event_event_id_fk REFERENCES event);
 
-alter table compilation
-    owner to postgres;
-
-create table request
-(
-    request_created      timestamp not null,
-    request_event_id     integer
-        constraint request_event_id_fk
-            references event
-            on update cascade on delete cascade,
-    request_requester_id integer
-        constraint request_user_id_fk
-            references users
-            on update cascade on delete cascade,
-    request_status       varchar,
-    id                   serial
-        primary key
-);
-
-alter table request
-    owner to postgres;
-
-create table compilation_event
-(
-    id             serial
-        primary key,
-    compilation_id integer
-        constraint compilation_event_compilation_id_fk
-            references compilation,
-    event_id       integer
-        constraint compilation_event_event_id_fk
-            references event
-);
-
-alter table compilation_event
-    owner to postgres;
+ALTER TABLE compilation_event OWNER TO postgres;

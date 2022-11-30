@@ -10,5 +10,8 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User as u WHERE u.id IN :ids")
-    public List<User> findAllById(Long[] ids, Pageable pageable);
+    public List<User> findAllById(List<Long> ids, Pageable pageable);
+
+    @Query("SELECT u FROM User as u WHERE u.id IN :ids")
+    public List<User> findAllByIdWithoutPage(List<Long> ids);
 }

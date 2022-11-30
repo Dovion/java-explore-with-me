@@ -19,7 +19,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             " AND e.category.id IN :categories " +
             " AND e.date BETWEEN :startDate AND :endDate "
     )
-    List<Event> getAllByUsersAndStatesAndCategoriesAndDates(Long[] users, List<EventState> states, Long[] categories, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
+    List<Event> getAllByUsersAndStatesAndCategoriesAndDates(List<Long> users, List<EventState> states, List<Long> categories, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
 
     @Query("SELECT e FROM Event e" +
             " WHERE e.annotation LIKE %:text% OR e.description LIKE %:text%" +
@@ -28,7 +28,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             " AND e.date BETWEEN :rangeStart AND :rangeEnd" +
             " AND ((:onlyAvailable = false) OR (:onlyAvailable = true AND e.participantLimit = 0) OR (:onlyAvailable = true AND e.participantLimit > e.confirmedRequests))")
     List<Event> getAllByTextAndCategoriesAndPaidAndDatesAndOnlyAvailable(@Param("text") String text,
-                                                                         Long[] categories,
+                                                                         List<Long> categories,
                                                                          Boolean paid,
                                                                          LocalDateTime rangeStart,
                                                                          LocalDateTime rangeEnd,

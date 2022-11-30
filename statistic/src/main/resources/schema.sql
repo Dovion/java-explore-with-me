@@ -1,16 +1,13 @@
-drop table if exists stats;
-create table stats
-(
-    id              serial
-        primary key,
-    stats_app       varchar,
-    stats_uri       varchar,
-    stats_ip        varchar,
-    stats_timestamp timestamp
-);
+DROP TABLE IF EXISTS stats;
 
-alter table stats
-    owner to postgres;
+CREATE TABLE stats
+(id SERIAL PRIMARY KEY,
+stats_app VARCHAR,
+stats_uri VARCHAR,
+stats_ip VARCHAR,
+stats_timestamp TIMESTAMP);
+
+ALTER TABLE stats OWNER TO postgres;
 
 
 
