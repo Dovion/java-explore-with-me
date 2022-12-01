@@ -52,7 +52,6 @@ public class AdminCompilationServiceImpl implements AdminCompilationService {
                     if (Objects.equals(event.getId(), eventId)) {
                         compilation.getCompilationEvents().remove(event);
                         event.getEventCompilations().remove(compilation);
-                        eventRepository.saveAndFlush(event);
                     }
                 }
             } catch (ConcurrentModificationException e) {
