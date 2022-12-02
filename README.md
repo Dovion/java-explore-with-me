@@ -1,5 +1,3 @@
-Pull request: [github.com/Dovion/java-explore-with-me/pull/1](https://github.com/Dovion/java-explore-with-me/pull/1)
-
 **Explore with me**
 ========================
 Free time is a valuable resource. Every day we plan how to spend it - where and with whom to go. The most difficult thing in such planning is the search for information and negotiations. What events are planned, whether friends are free at this moment, how to invite everyone and where to gather. This application is a poster where you can offer any event from an exhibition to going to the cinema and recruit a company to participate in it.
