@@ -65,7 +65,7 @@ public class AdminCommentServiceImpl implements AdminCommentService {
     public CommentFullDto publishComment(Long eventId, Long commentId) throws EntityNotFoundException, CommentStatusException, EventStateException {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Can`t publish comment: event not found"));
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new EntityNotFoundException("Can`t publish comment: comment not found"));
-        if (comment.getStatus() != CommentStatus.WAITING) {
+        if (!comment.getStatus().equals(CommentStatus.WAITING)) {
             throw new CommentStatusException("Can`t publish comment: comment state isn`t waiting");
         }
         if (event.getEventState() != EventState.PUBLISHED) {
@@ -82,7 +82,7 @@ public class AdminCommentServiceImpl implements AdminCommentService {
     public CommentFullDto rejectComment(Long eventId, Long commentId) throws EntityNotFoundException, CommentStatusException {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Can`t publish comment: event not found"));
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new EntityNotFoundException("Can`t publish comment: comment not found"));
-        if (comment.getStatus() != CommentStatus.WAITING) {
+        if (!comment.getStatus().equals(CommentStatus.WAITING)) {
             throw new CommentStatusException("Can`t reject comment: comment state isn`t waiting");
         }
         comment.setStatus(CommentStatus.REJECTED);
