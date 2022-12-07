@@ -15,6 +15,7 @@ public interface AdminCommentService {
                                                    String text,
                                                    Integer from,
                                                    Integer size) throws EntityNotFoundException;
+
     public CommentFullDto publishComment(Long eventId, Long commentId) throws EntityNotFoundException, CommentStatusException, EventStateException;
 
     public CommentFullDto rejectComment(Long eventId, Long commentId) throws EntityNotFoundException, CommentStatusException;

@@ -8,8 +8,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.explorewithme.client.StatisticClient;
-import ru.practicum.explorewithme.comment.model.Comment;
-import ru.practicum.explorewithme.comment.repository.CommentRepository;
 import ru.practicum.explorewithme.dto.StatisticDto;
 import ru.practicum.explorewithme.event.dto.EventFullDto;
 import ru.practicum.explorewithme.event.dto.EventPublicDto;
@@ -34,8 +32,6 @@ import java.util.List;
 public class PublicEventServiceImpl implements PublicEventService {
 
     private final EventRepository eventRepository;
-
-    private final CommentRepository commentRepository;
     private final StatisticClient statisticClient;
 
     @Override

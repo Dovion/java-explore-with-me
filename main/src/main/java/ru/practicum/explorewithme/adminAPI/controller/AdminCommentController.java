@@ -5,9 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.explorewithme.adminAPI.service.AdminCommentService;
-import ru.practicum.explorewithme.adminAPI.service.AdminCompilationService;
 import ru.practicum.explorewithme.comment.dto.CommentFullDto;
-import ru.practicum.explorewithme.event.dto.EventFullDto;
 import ru.practicum.explorewithme.exception.CommentStatusException;
 import ru.practicum.explorewithme.exception.EntityNotFoundException;
 import ru.practicum.explorewithme.exception.EventStateException;
@@ -52,7 +50,7 @@ public class AdminCommentController {
 
     @DeleteMapping("/events/{eventId}/comment/{commentId}")
     public void deleteCommentByAdmin(@PathVariable @Positive long eventId, @PathVariable @Positive long commentId, HttpServletRequest request) throws EntityNotFoundException {
-        log.info("Deleting comment to event:{} by administrator at: {}",eventId, request.getServletPath());
+        log.info("Deleting comment to event:{} by administrator at: {}", eventId, request.getServletPath());
         administratorService.deleteComment(eventId, commentId);
     }
 }

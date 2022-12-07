@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.practicum.explorewithme.category.dto.CategoryFullDto;
 import ru.practicum.explorewithme.comment.dto.CommentFullDto;
-import ru.practicum.explorewithme.comment.model.Comment;
 import ru.practicum.explorewithme.event.model.EventState;
 import ru.practicum.explorewithme.event.model.Location;
 import ru.practicum.explorewithme.user.dto.UserDto;

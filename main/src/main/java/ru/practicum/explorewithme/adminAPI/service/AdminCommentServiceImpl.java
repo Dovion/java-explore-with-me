@@ -11,15 +11,12 @@ import ru.practicum.explorewithme.comment.mapper.CommentMapper;
 import ru.practicum.explorewithme.comment.model.Comment;
 import ru.practicum.explorewithme.comment.model.CommentStatus;
 import ru.practicum.explorewithme.comment.repository.CommentRepository;
-import ru.practicum.explorewithme.event.dto.EventFullDto;
-import ru.practicum.explorewithme.event.mapper.EventMapper;
 import ru.practicum.explorewithme.event.model.Event;
 import ru.practicum.explorewithme.event.model.EventState;
 import ru.practicum.explorewithme.event.repository.EventRepository;
 import ru.practicum.explorewithme.exception.CommentStatusException;
 import ru.practicum.explorewithme.exception.EntityNotFoundException;
 import ru.practicum.explorewithme.exception.EventStateException;
-import ru.practicum.explorewithme.user.model.User;
 import ru.practicum.explorewithme.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
@@ -30,11 +27,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
-public class AdminCommentServiceImpl implements AdminCommentService{
+public class AdminCommentServiceImpl implements AdminCommentService {
 
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
     private final CommentRepository commentRepository;
+
     @Override
     public List<CommentFullDto> getAllUserComments(List<Long> users, List<Long> events, List<String> states, String text, Integer from, Integer size) throws EntityNotFoundException {
         if (eventRepository.findAllByIdWithoutPage(events).size() == 0) {
@@ -70,7 +68,7 @@ public class AdminCommentServiceImpl implements AdminCommentService{
         if (comment.getStatus() != CommentStatus.WAITING) {
             throw new CommentStatusException("Can`t publish comment: comment state isn`t waiting");
         }
-        if (event.getEventState() != EventState.PUBLISHED){
+        if (event.getEventState() != EventState.PUBLISHED) {
             throw new EventStateException("Can`t publish comment: event state isn`t published");
         }
         comment.setPublishedOn(LocalDateTime.now());
@@ -84,7 +82,7 @@ public class AdminCommentServiceImpl implements AdminCommentService{
     public CommentFullDto rejectComment(Long eventId, Long commentId) throws EntityNotFoundException, CommentStatusException {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Can`t publish comment: event not found"));
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new EntityNotFoundException("Can`t publish comment: comment not found"));
-        if (comment.getStatus() != CommentStatus.WAITING){
+        if (comment.getStatus() != CommentStatus.WAITING) {
             throw new CommentStatusException("Can`t reject comment: comment state isn`t waiting");
         }
         comment.setStatus(CommentStatus.REJECTED);

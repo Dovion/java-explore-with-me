@@ -19,7 +19,6 @@ import ru.practicum.explorewithme.exception.EntityNotFoundException;
 import ru.practicum.explorewithme.user.model.User;
 import ru.practicum.explorewithme.user.repository.UserRepository;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,18 +26,19 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
-public class AuthCommentServiceImpl implements AuthCommentService{
+public class AuthCommentServiceImpl implements AuthCommentService {
 
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
     private final CommentRepository commentRepository;
+
     @Override
     public List<CommentFullDto> getAllComments(Long eventId, Long userId, Integer from, Integer size) throws EntityNotFoundException {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("Can`t get all comments: user not found"));
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Can`t get all comments: event not found"));
         Pageable pageable = PageRequest.of(from / size, size);
         List<CommentFullDto> commentFullDtoList = new ArrayList<>();
-        for(var comment: commentRepository.getAllByEventIdAndUserId(eventId, userId, pageable)){
+        for (var comment : commentRepository.getAllByEventIdAndUserId(eventId, userId, pageable)) {
             commentFullDtoList.add(CommentMapper.commentToCommentFullDto(comment));
         }
         log.info("Getting success");
@@ -65,13 +65,13 @@ public class AuthCommentServiceImpl implements AuthCommentService{
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("Can`t update comment: user not found"));
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Can`t update comment: event not found"));
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new EntityNotFoundException("Can`t update comment: comment not found"));
-        if (comment.getAuthor().getId() != userId){
+        if (comment.getAuthor().getId() != userId) {
             throw new ConflictException("Can`t update comment: only author can edit his comment");
         }
-        if (comment.getStatus() == CommentStatus.PUBLISHED || comment.getStatus() == CommentStatus.REJECTED){
+        if (comment.getStatus() == CommentStatus.PUBLISHED || comment.getStatus() == CommentStatus.REJECTED) {
             comment.setStatus(CommentStatus.WAITING);
         }
-        if (comment.getPublishedOn()!= null){
+        if (comment.getPublishedOn() != null) {
             comment.setPublishedOn(null);
         }
         comment.setText(commentDto.getText());
@@ -84,7 +84,7 @@ public class AuthCommentServiceImpl implements AuthCommentService{
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("Can`t delete comment: user not found"));
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Can`t delete comment: event not found"));
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new EntityNotFoundException("Can`t delete comment: comment not found"));
-        if (comment.getAuthor().getId() != userId){
+        if (comment.getAuthor().getId() != userId) {
             throw new ConflictException("Can`t delete comment: only author can delete his comment");
         }
         commentRepository.deleteById(commentId);

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.explorewithme.authAPI.service.AuthCommentService;
-import ru.practicum.explorewithme.authAPI.service.AuthEventService;
 import ru.practicum.explorewithme.comment.dto.CommentDto;
 import ru.practicum.explorewithme.comment.dto.CommentFullDto;
 import ru.practicum.explorewithme.exception.ConflictException;
@@ -28,10 +27,10 @@ public class AuthCommentController {
 
     @GetMapping("/{userId}/events/{eventId}/comment")
     public List<CommentFullDto> getAllAuthorComments(@PathVariable @Positive long userId,
-                                               @PathVariable @Positive long eventId,
-                                               @RequestParam(defaultValue = "0",required = false) @PositiveOrZero Integer from,
-                                               @RequestParam(defaultValue = "10", required = false) @Positive Integer size,
-                                               HttpServletRequest request) throws EntityNotFoundException {
+                                                     @PathVariable @Positive long eventId,
+                                                     @RequestParam(defaultValue = "0", required = false) @PositiveOrZero Integer from,
+                                                     @RequestParam(defaultValue = "10", required = false) @Positive Integer size,
+                                                     HttpServletRequest request) throws EntityNotFoundException {
         log.info("Getting all comments to event:{} by user id:{} at: {}", eventId, userId, request.getServletPath());
         return authorizeService.getAllComments(eventId, userId, from, size);
     }

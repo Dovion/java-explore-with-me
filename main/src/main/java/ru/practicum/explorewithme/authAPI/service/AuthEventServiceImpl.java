@@ -16,7 +16,6 @@ import ru.practicum.explorewithme.event.model.EventState;
 import ru.practicum.explorewithme.event.repository.EventRepository;
 import ru.practicum.explorewithme.exception.EntityNotFoundException;
 import ru.practicum.explorewithme.exception.EventStateException;
-import ru.practicum.explorewithme.request.repository.RequestRepository;
 import ru.practicum.explorewithme.user.model.User;
 import ru.practicum.explorewithme.user.repository.UserRepository;
 

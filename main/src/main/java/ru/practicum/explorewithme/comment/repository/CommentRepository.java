@@ -6,9 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.practicum.explorewithme.comment.model.Comment;
 import ru.practicum.explorewithme.comment.model.CommentStatus;
-import ru.practicum.explorewithme.event.model.Event;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
@@ -25,8 +23,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             " AND c.event.id IN :events" +
             " AND c.status IN :states")
     List<Comment> getAllByUsersAndEventsAndStatesAndText(@Param("text") String text,
-                                                       List<Long> users,
-                                                       List<Long> events,
-                                                       List<CommentStatus> states,
-                                                       Pageable pageable);
+                                                         List<Long> users,
+                                                         List<Long> events,
+                                                         List<CommentStatus> states,
+                                                         Pageable pageable);
 }

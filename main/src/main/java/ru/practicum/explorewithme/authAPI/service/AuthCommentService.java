@@ -15,5 +15,5 @@ public interface AuthCommentService {
 
     public CommentFullDto updateComment(Long userId, Long eventId, Long commentId, CommentDto commentDto) throws EntityNotFoundException, ConflictException;
 
-    public void deleteComment(Long userId, Long  eventId, Long commentId) throws EntityNotFoundException, ConflictException;
+    public void deleteComment(Long userId, Long eventId, Long commentId) throws EntityNotFoundException, ConflictException;
 }

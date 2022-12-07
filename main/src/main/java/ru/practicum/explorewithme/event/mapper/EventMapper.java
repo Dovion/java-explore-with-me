@@ -2,8 +2,6 @@ package ru.practicum.explorewithme.event.mapper;
 
 import ru.practicum.explorewithme.category.mapper.CategoryMapper;
 import ru.practicum.explorewithme.category.model.Category;
-import ru.practicum.explorewithme.comment.dto.CommentFullDto;
-import ru.practicum.explorewithme.comment.dto.CommentPubDto;
 import ru.practicum.explorewithme.comment.mapper.CommentMapper;
 import ru.practicum.explorewithme.comment.model.CommentStatus;
 import ru.practicum.explorewithme.event.dto.EventDto;
@@ -13,7 +11,6 @@ import ru.practicum.explorewithme.event.model.Event;
 import ru.practicum.explorewithme.event.model.Location;
 import ru.practicum.explorewithme.user.mapper.UserMapper;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class EventMapper {
