@@ -7,6 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.explorewithme.category.repository.CategoryRepository;
+import ru.practicum.explorewithme.comment.dto.CommentFullDto;
+import ru.practicum.explorewithme.comment.mapper.CommentMapper;
+import ru.practicum.explorewithme.comment.model.Comment;
+import ru.practicum.explorewithme.comment.repository.CommentRepository;
 import ru.practicum.explorewithme.event.dto.EventDto;
 import ru.practicum.explorewithme.event.dto.EventFullDto;
 import ru.practicum.explorewithme.event.mapper.EventMapper;
@@ -31,6 +35,7 @@ public class AdminEventServiceImpl implements AdminEventService {
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final EventRepository eventRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     @Transactional(readOnly = true)

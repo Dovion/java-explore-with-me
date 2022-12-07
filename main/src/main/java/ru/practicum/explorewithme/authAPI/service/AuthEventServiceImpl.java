@@ -33,7 +33,6 @@ public class AuthEventServiceImpl implements AuthEventService {
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
     private final CategoryRepository categoryRepository;
-    private final RequestRepository requestRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -86,6 +85,7 @@ public class AuthEventServiceImpl implements AuthEventService {
         event.setEventState(EventState.PENDING);
         event.setConfirmedRequests(0L);
         event.setViews(0L);
+        event.setComments(List.of());
         eventRepository.saveAndFlush(event);
         log.info("Saving success");
         return EventMapper.eventToEventFullDto(event);

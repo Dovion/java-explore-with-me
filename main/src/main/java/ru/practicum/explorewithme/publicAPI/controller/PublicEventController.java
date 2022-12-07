@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.explorewithme.event.dto.EventFullDto;
+import ru.practicum.explorewithme.event.dto.EventPublicDto;
 import ru.practicum.explorewithme.exception.EntityNotFoundException;
 import ru.practicum.explorewithme.publicAPI.service.PublicEventService;
 
@@ -25,16 +26,16 @@ public class PublicEventController {
 
 
     @GetMapping("/events")
-    public List<EventFullDto> getAllEvents(@RequestParam(defaultValue = "") String text,
-                                           @RequestParam(required = false) List<Long> categories,
-                                           @RequestParam(required = false) Boolean paid,
-                                           @RequestParam(required = false) String rangeStart,
-                                           @RequestParam(required = false) String rangeEnd,
-                                           @RequestParam(required = false) Boolean onlyAvailable,
-                                           @RequestParam(required = false, defaultValue = "EVENT_DATE") String sort,
-                                           @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
-                                           @RequestParam(defaultValue = "10") @Positive Integer size,
-                                           HttpServletRequest request) {
+    public List<EventPublicDto> getAllEvents(@RequestParam(defaultValue = "") String text,
+                                             @RequestParam(required = false) List<Long> categories,
+                                             @RequestParam(required = false) Boolean paid,
+                                             @RequestParam(required = false) String rangeStart,
+                                             @RequestParam(required = false) String rangeEnd,
+                                             @RequestParam(required = false) Boolean onlyAvailable,
+                                             @RequestParam(required = false, defaultValue = "EVENT_DATE") String sort,
+                                             @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
+                                             @RequestParam(defaultValue = "10") @Positive Integer size,
+                                             HttpServletRequest request) {
         log.info("Getting all events by public request: " + request.getServletPath());
         return publicService.getAllEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size, request);
     }

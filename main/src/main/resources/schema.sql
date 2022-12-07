@@ -1,9 +1,12 @@
 DROP TABLE IF EXISTS compilation_event;
 DROP TABLE IF EXISTS request;
 DROP TABLE IF EXISTS compilation;
+DROP TABLE IF EXISTS stats;
+DROP TABLE IF EXISTS comment_event;
+DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS event;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS users;
 CREATE SEQUENCE IF NOT EXISTS limits MINVALUE 0;
 
 ALTER SEQUENCE limits OWNER TO postgres;
@@ -67,3 +70,32 @@ compilation_id INTEGER CONSTRAINT compilation_event_compilation_id_fk REFERENCES
 event_id INTEGER CONSTRAINT compilation_event_event_id_fk REFERENCES event);
 
 ALTER TABLE compilation_event OWNER TO postgres;
+
+CREATE TABLE comment
+(id SERIAL PRIMARY KEY UNIQUE,
+comment_status VARCHAR NOT NULL ,
+comment_text VARCHAR NOT NULL,
+comment_published_on TIMESTAMP,
+comment_author_id INTEGER NOT NULL
+CONSTRAINT comment_users_id_fk
+REFERENCES users
+ON DELETE CASCADE,
+comment_event_id INTEGER
+CONSTRAINT comment_event_id_fk
+REFERENCES event
+ON DELETE CASCADE );
+
+ALTER TABLE comment OWNER TO postgres;
+
+CREATE TABLE comment_event
+(id SERIAL PRIMARY KEY UNIQUE ,
+event_id INTEGER CONSTRAINT comment_event_event_id_fk
+REFERENCES event
+ON DELETE CASCADE ,
+comment_id INTEGER
+CONSTRAINT comment_event_comment_id_fk
+REFERENCES comment
+ON DELETE CASCADE);
+
+ALTER TABLE comment_event
+OWNER TO postgres;

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.explorewithme.authAPI.service.AuthEventService;
+import ru.practicum.explorewithme.comment.dto.CommentFullDto;
 import ru.practicum.explorewithme.event.dto.EventDto;
 import ru.practicum.explorewithme.event.dto.EventFullDto;
 import ru.practicum.explorewithme.exception.EntityNotFoundException;

@@ -8,8 +8,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.explorewithme.client.StatisticClient;
+import ru.practicum.explorewithme.comment.model.Comment;
+import ru.practicum.explorewithme.comment.repository.CommentRepository;
 import ru.practicum.explorewithme.dto.StatisticDto;
 import ru.practicum.explorewithme.event.dto.EventFullDto;
+import ru.practicum.explorewithme.event.dto.EventPublicDto;
 import ru.practicum.explorewithme.event.mapper.EventMapper;
 import ru.practicum.explorewithme.event.model.Event;
 import ru.practicum.explorewithme.event.model.EventState;
@@ -31,10 +34,12 @@ import java.util.List;
 public class PublicEventServiceImpl implements PublicEventService {
 
     private final EventRepository eventRepository;
+
+    private final CommentRepository commentRepository;
     private final StatisticClient statisticClient;
 
     @Override
-    public List<EventFullDto> getAllEvents(String text, List categories, Boolean paid, String rangeStart, String rangeEnd, Boolean onlyAvailable, String sortString, Integer from, Integer size, HttpServletRequest request) {
+    public List<EventPublicDto> getAllEvents(String text, List categories, Boolean paid, String rangeStart, String rangeEnd, Boolean onlyAvailable, String sortString, Integer from, Integer size, HttpServletRequest request) {
         EventSortState eventSortState;
         Sort sort;
         try {
@@ -59,11 +64,11 @@ public class PublicEventServiceImpl implements PublicEventService {
             endDate = LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
         List<Event> eventList = eventRepository.getAllByTextAndCategoriesAndPaidAndDatesAndOnlyAvailable(text, categories, paid, startDate, endDate, onlyAvailable, pageable);
-        List<EventFullDto> eventFullDtoList = new ArrayList<>();
+        List<EventPublicDto> eventPublicDtoList = new ArrayList<>();
         for (var event : eventList) {
             eventRepository.addViewByEventId(event.getId());
             event.setViews(event.getViews() + 1);
-            eventFullDtoList.add(EventMapper.eventToEventFullDto(event));
+            eventPublicDtoList.add(EventMapper.eventToEventPublicDto(event));
         }
         Thread thread = new Thread(
                 () -> {
@@ -81,7 +86,7 @@ public class PublicEventServiceImpl implements PublicEventService {
                 });
         thread.start();
         log.info("Getting success");
-        return eventFullDtoList;
+        return eventPublicDtoList;
     }
 
     @Override

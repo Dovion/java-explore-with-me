@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.practicum.explorewithme.event.model.Event;
 import ru.practicum.explorewithme.event.model.EventState;
+import ru.practicum.explorewithme.user.model.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,5 +42,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     @Query("UPDATE Event as e set e.views = e.views + 1" +
             " WHERE e.id = :eventId")
     void addViewByEventId(Long eventId);
+
+    @Query("SELECT e FROM Event as e WHERE e.id IN :ids")
+    public List<Event> findAllByIdWithoutPage(List<Long> ids);
 
 }
