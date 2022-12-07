@@ -9,12 +9,12 @@ import java.util.List;
 
 public interface AdminCommentService {
 
-    public List<CommentFullDto> getAllUserComments(List<Long> users,
-                                                   List<Long> events,
-                                                   List<String> states,
-                                                   String text,
-                                                   Integer from,
-                                                   Integer size) throws EntityNotFoundException;
+    public List<CommentFullDto> getAllCommentsByEventAndUsersWithFilter(List<Long> users,
+                                                                        List<Long> events,
+                                                                        List<String> states,
+                                                                        String text,
+                                                                        Integer from,
+                                                                        Integer size) throws EntityNotFoundException;
 
     public CommentFullDto publishComment(Long eventId, Long commentId) throws EntityNotFoundException, CommentStatusException, EventStateException;
 

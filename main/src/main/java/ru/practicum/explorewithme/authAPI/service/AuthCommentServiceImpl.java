@@ -33,6 +33,7 @@ public class AuthCommentServiceImpl implements AuthCommentService {
     private final CommentRepository commentRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<CommentFullDto> getAllComments(Long eventId, Long userId, Integer from, Integer size) throws EntityNotFoundException {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("Can`t get all comments: user not found"));
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Can`t get all comments: event not found"));
@@ -76,6 +77,7 @@ public class AuthCommentServiceImpl implements AuthCommentService {
         }
         comment.setText(commentDto.getText());
         commentRepository.saveAndFlush(comment);
+        log.info("Updating success");
         return CommentMapper.commentToCommentFullDto(comment);
     }
 

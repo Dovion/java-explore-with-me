@@ -34,7 +34,7 @@ public class AdminCommentServiceImpl implements AdminCommentService {
     private final CommentRepository commentRepository;
 
     @Override
-    public List<CommentFullDto> getAllUserComments(List<Long> users, List<Long> events, List<String> states, String text, Integer from, Integer size) throws EntityNotFoundException {
+    public List<CommentFullDto> getAllCommentsByEventAndUsersWithFilter(List<Long> users, List<Long> events, List<String> states, String text, Integer from, Integer size) throws EntityNotFoundException {
         if (eventRepository.findAllByIdWithoutPage(events).size() == 0) {
             throw new EntityNotFoundException("Can`t get all comments: event not found");
         }

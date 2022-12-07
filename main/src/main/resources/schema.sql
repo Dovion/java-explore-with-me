@@ -74,7 +74,7 @@ ALTER TABLE compilation_event OWNER TO postgres;
 CREATE TABLE comment
 (id SERIAL PRIMARY KEY UNIQUE,
 comment_status VARCHAR NOT NULL ,
-comment_text VARCHAR NOT NULL,
+comment_text VARCHAR(400) NOT NULL,
 comment_published_on TIMESTAMP,
 comment_author_id INTEGER NOT NULL
 CONSTRAINT comment_users_id_fk

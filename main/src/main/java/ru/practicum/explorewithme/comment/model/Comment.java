@@ -8,6 +8,7 @@ import ru.practicum.explorewithme.event.model.Event;
 import ru.practicum.explorewithme.user.model.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
