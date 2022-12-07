@@ -65,7 +65,7 @@ public class AuthCommentServiceImpl implements AuthCommentService {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("Can`t update comment: user not found"));
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Can`t update comment: event not found"));
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new EntityNotFoundException("Can`t update comment: comment not found"));
-        if (comment.getAuthor().getId() != userId) {
+        if (comment.getAuthor().getId().equals(userId)) {
             throw new ConflictException("Can`t update comment: only author can edit his comment");
         }
         if (comment.getStatus() == CommentStatus.PUBLISHED || comment.getStatus() == CommentStatus.REJECTED) {
@@ -84,7 +84,7 @@ public class AuthCommentServiceImpl implements AuthCommentService {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("Can`t delete comment: user not found"));
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Can`t delete comment: event not found"));
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new EntityNotFoundException("Can`t delete comment: comment not found"));
-        if (comment.getAuthor().getId() != userId) {
+        if (comment.getAuthor().getId().equals(userId)) {
             throw new ConflictException("Can`t delete comment: only author can delete his comment");
         }
         commentRepository.deleteById(commentId);
