@@ -26,12 +26,12 @@ public class AdminCommentController {
 
     @GetMapping("/events/comment")
     public List<CommentFullDto> getAllCommentsByEventAndUsersWithFilter(@RequestParam(required = false) List<Long> users,
-                                               @RequestParam(required = false) List<Long> events,
-                                               @RequestParam(required = false) List<String> states,
-                                               @RequestParam(defaultValue = "") String text,
-                                               @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
-                                               @RequestParam(defaultValue = "10") @Positive Integer size,
-                                               HttpServletRequest request) throws EntityNotFoundException {
+                                                                        @RequestParam(required = false) List<Long> events,
+                                                                        @RequestParam(required = false) List<String> states,
+                                                                        @RequestParam(defaultValue = "") String text,
+                                                                        @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
+                                                                        @RequestParam(defaultValue = "10") @Positive Integer size,
+                                                                        HttpServletRequest request) throws EntityNotFoundException {
         log.info("Getting comments by administrator:{}", request.getServletPath());
         return administratorService.getAllCommentsByEventAndUsersWithFilter(users, events, states, text, from, size);
     }
