@@ -6,10 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.practicum.explorewithme.category.dto.CategoryFullDto;
+import ru.practicum.explorewithme.comment.dto.CommentPubDto;
 import ru.practicum.explorewithme.event.model.Location;
 import ru.practicum.explorewithme.user.dto.UserDto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -28,4 +30,5 @@ public class EventPublicDto {
     private boolean paid;
     private String title;
     private Long views;
+    private List<CommentPubDto> comments;
 }

@@ -2,12 +2,16 @@ package ru.practicum.explorewithme.event.mapper;
 
 import ru.practicum.explorewithme.category.mapper.CategoryMapper;
 import ru.practicum.explorewithme.category.model.Category;
+import ru.practicum.explorewithme.comment.mapper.CommentMapper;
+import ru.practicum.explorewithme.comment.model.CommentStatus;
 import ru.practicum.explorewithme.event.dto.EventDto;
 import ru.practicum.explorewithme.event.dto.EventFullDto;
 import ru.practicum.explorewithme.event.dto.EventPublicDto;
 import ru.practicum.explorewithme.event.model.Event;
 import ru.practicum.explorewithme.event.model.Location;
 import ru.practicum.explorewithme.user.mapper.UserMapper;
+
+import java.util.stream.Collectors;
 
 public class EventMapper {
 
@@ -29,7 +33,9 @@ public class EventMapper {
                 eventDto.getLocation().getLon(),
                 eventDto.getLocation().getLat(),
                 null,
-                null, null);
+                null,
+                null,
+                null);
     }
 
     public static EventPublicDto eventToEventPublicDto(Event event) {
@@ -42,7 +48,8 @@ public class EventMapper {
                 UserMapper.userToUserDto(event.getInitiator()),
                 event.getPaid(),
                 event.getTitle(),
-                event.getViews());
+                event.getViews(),
+                event.getComments().stream().filter(comment -> comment.getStatus().equals(CommentStatus.PUBLISHED)).map(CommentMapper::commentToCommentPubDto).collect(Collectors.toList()));
     }
 
     public static EventFullDto eventToEventFullDto(Event event) {
@@ -61,6 +68,7 @@ public class EventMapper {
                 event.getRequestModeration(),
                 event.getEventState(),
                 event.getTitle(),
-                event.getViews());
+                event.getViews(),
+                event.getComments().stream().map(CommentMapper::commentToCommentFullDto).collect(Collectors.toList()));
     }
 }

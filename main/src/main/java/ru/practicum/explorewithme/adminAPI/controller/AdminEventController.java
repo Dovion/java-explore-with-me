@@ -55,4 +55,5 @@ public class AdminEventController {
         log.info("Rejecting event by administrator: " + request.getServletPath());
         return administratorService.rejectEvent(eventId);
     }
+
 }

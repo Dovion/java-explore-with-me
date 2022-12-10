@@ -56,7 +56,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (!userRepository.existsById(id)) {
             throw new EntityNotFoundException("Can`t remove user: user not found");
         }
-        log.info("Removing success");
         userRepository.deleteById(id);
+        log.info("Removing success");
     }
 }

@@ -5,11 +5,13 @@ import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.practicum.explorewithme.category.model.Category;
+import ru.practicum.explorewithme.comment.model.Comment;
 import ru.practicum.explorewithme.compilation.model.Compilation;
 import ru.practicum.explorewithme.user.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -73,6 +75,13 @@ public class Event {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Compilation> eventCompilations;
+    @JoinTable(name = "comment_event",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "comment_id"))
+    @OneToMany
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Comment> comments = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

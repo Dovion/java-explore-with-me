@@ -16,7 +16,6 @@ import ru.practicum.explorewithme.event.model.EventState;
 import ru.practicum.explorewithme.event.repository.EventRepository;
 import ru.practicum.explorewithme.exception.EntityNotFoundException;
 import ru.practicum.explorewithme.exception.EventStateException;
-import ru.practicum.explorewithme.request.repository.RequestRepository;
 import ru.practicum.explorewithme.user.model.User;
 import ru.practicum.explorewithme.user.repository.UserRepository;
 
@@ -33,7 +32,6 @@ public class AuthEventServiceImpl implements AuthEventService {
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
     private final CategoryRepository categoryRepository;
-    private final RequestRepository requestRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -86,6 +84,7 @@ public class AuthEventServiceImpl implements AuthEventService {
         event.setEventState(EventState.PENDING);
         event.setConfirmedRequests(0L);
         event.setViews(0L);
+        event.setComments(List.of());
         eventRepository.saveAndFlush(event);
         log.info("Saving success");
         return EventMapper.eventToEventFullDto(event);

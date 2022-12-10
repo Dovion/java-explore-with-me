@@ -42,4 +42,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             " WHERE e.id = :eventId")
     void addViewByEventId(Long eventId);
 
+    @Query("SELECT e FROM Event as e WHERE e.id IN :ids")
+    public List<Event> findAllByIdWithoutPage(List<Long> ids);
+
 }
