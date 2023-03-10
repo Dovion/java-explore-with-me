@@ -20,4 +20,11 @@ Free time is a valuable resource. Every day we plan how to spend it - where and 
 * [Main service](https://raw.githubusercontent.com/yandex-praktikum/java-explore-with-me/main/ewm-main-service-spec.json)
 * [Statistic service](https://raw.githubusercontent.com/yandex-praktikum/java-explore-with-me/main/ewm-stats-service-spec.json)
 
+**Technology stack:**
+* Java, Spring boot, PostgreSQL, Docker.
+
+**How to start:**
+* Run docker-compose.yml from *\java-explore-with-me\docker-compose.yml
+* If you need to run the application without Docker - just change the data source port in application.properties to 5432 in the main and static directory. After that run it with your IDE.
+
 ![Architect](https://sun9-70.userapi.com/impg/QpkVY9I4DpQPzSGnyv0CtIJZ4x-zWztba4AEmg/a5Jsa5TlGmo.jpg?size=1656x1028&quality=96&sign=f97bab5616672ed3b0144adf4d99d366&type=album)
